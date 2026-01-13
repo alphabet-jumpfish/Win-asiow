@@ -16,6 +16,8 @@ pkg_check_modules(ASIO REQUIRED asio)
 # 2. 将 main.cpp 声明为 asiow 项目的入口
 add_executable(asiow
         main.cpp
+        Server.cpp
+        Server.h
         controller/HelloController.cpp
         controller/HelloController.h
         service/HelloService.cpp
