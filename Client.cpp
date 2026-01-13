@@ -13,10 +13,8 @@ Client::Client(asio::io_context& io_context,
 }
 
 void Client::sendRequest(const std::string& message) {
-    // 如果连接已关闭，重新连接
-    if (!socket_.is_open()) {
-        reconnect();
-    }
+    // 每次请求前都重新连接（因为服务器会在响应后关闭连接）
+    reconnect();
 
     asio::write(socket_, asio::buffer(message));
     std::cout << "已发送: " << message << std::endl;

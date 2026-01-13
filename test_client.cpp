@@ -26,7 +26,7 @@ int main() {
         client.sendRequest("ASIO");
 
         std::cout << "\n=== 测试 3: 发送 'Claude' ===" << std::endl;
-        client.sendRequest("C222");
+        client.sendRequest("Claude");
 
     } catch (std::exception& e) {
         std::cerr << "异常: " << e.what() << std::endl;
