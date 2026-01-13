@@ -14,7 +14,12 @@ public:
     std::string getResponse() const;
 
 private:
+    void reconnect();
+
+    asio::io_context& io_context_;
     asio::ip::tcp::socket socket_;
+    std::string host_;
+    std::string port_;
     std::string response_;
 };
 

@@ -22,11 +22,11 @@ int main() {
         std::cout << "\n=== 测试 1: 发送 'World' ===" << std::endl;
         client.sendRequest("World");
 
-        // std::cout << "\n=== 测试 2: 发送 'ASIO' ===" << std::endl;
-        // client.sendRequest("ASIO");
+        std::cout << "\n=== 测试 2: 发送 'ASIO' ===" << std::endl;
+        client.sendRequest("ASIO");
 
         std::cout << "\n=== 测试 3: 发送 'Claude' ===" << std::endl;
-        client.sendRequest("Claude");
+        client.sendRequest("C222");
 
     } catch (std::exception& e) {
         std::cerr << "异常: " << e.what() << std::endl;

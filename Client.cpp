@@ -5,16 +5,19 @@
 Client::Client(asio::io_context& io_context,
                const std::string& host,
                const std::string& port)
-    : socket_(io_context) {
-
-    asio::ip::tcp::resolver resolver(io_context);
-    auto endpoints = resolver.resolve(host, port);
-
-    asio::connect(socket_, endpoints);
-    std::cout << "已连接到服务器 " << host << ":" << port << std::endl;
+    : io_context_(io_context),
+      socket_(io_context),
+      host_(host),
+      port_(port) {
+    reconnect();
 }
 
 void Client::sendRequest(const std::string& message) {
+    // 如果连接已关闭，重新连接
+    if (!socket_.is_open()) {
+        reconnect();
+    }
+
     asio::write(socket_, asio::buffer(message));
     std::cout << "已发送: " << message << std::endl;
 
@@ -34,4 +37,16 @@ void Client::sendRequest(const std::string& message) {
 
 std::string Client::getResponse() const {
     return response_;
+}
+
+void Client::reconnect() {
+    if (socket_.is_open()) {
+        socket_.close();
+    }
+
+    asio::ip::tcp::resolver resolver(io_context_);
+    auto endpoints = resolver.resolve(host_, port_);
+
+    asio::connect(socket_, endpoints);
+    std::cout << "已连接到服务器 " << host_ << ":" << port_ << std::endl;
 }
