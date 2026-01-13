@@ -33,3 +33,18 @@ if(WIN32)
     # 增加 mswsock，这是 Asio 处理高级 Socket 操作常需要的
     target_link_libraries(asiow PRIVATE ws2_32 wsock32 mswsock)
 endif()
+
+# 4. 添加客户端可执行文件
+add_executable(test_client
+        test_client.cpp
+        Client.cpp
+        Client.h
+)
+
+# 5. 为客户端链接 Asio 和 Windows 库
+target_include_directories(test_client PRIVATE ${ASIO_INCLUDE_DIRS})
+target_link_libraries(test_client PRIVATE ${ASIO_LIBRARIES})
+
+if(WIN32)
+    target_link_libraries(test_client PRIVATE ws2_32 wsock32 mswsock)
+endif()
